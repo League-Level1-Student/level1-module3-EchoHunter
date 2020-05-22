@@ -6,6 +6,7 @@ package _04_magic_box;
 
 
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -31,7 +32,7 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 	 * 
 	 * 3. Choose 3 different locations on the background image.You can either use the mouse position, 
 	 *    or the color of the image, then decide what action the Media Palace should take in each case. 
-	 *     backgroundImage.getRGB(e.getX(), e.getY()) will give you the color of the current pixel.
+	 *     will give you the color of the current pixel.
 	 */
 
 	BufferedImage backgroundImage;
@@ -45,6 +46,9 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 		} catch (Exception w) {
 			System.err.println(w.getMessage());
 		}
+	
+	
+	
 	}
 
 	private void createUI() {
@@ -52,6 +56,7 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 		frame.add(this);
 		setPreferredSize(new Dimension(backgroundImage.getWidth(), backgroundImage.getHeight()));
 		frame.pack();
+		frame.addMouseListener(this);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
@@ -73,8 +78,24 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		int color=backgroundImage.getRGB(e.getX(), e.getY());
+		System.out.println(backgroundImage.getRGB(e.getX(), e.getY()));
+		MediaPalace m = new MediaPalace();
+		if(color  == -1187934) {
+			System.out.println("You Found it!");
+m.speak("Nice! congrats on the epic win dub");
+		}
+		else if(color == -2113411) {
+			System.out.println("That's Jerry! not what you're looking for");
+		m.speak("This is jerry. terminate conversation");
+		}
+		else {
+			System.out.println("This ain't it cheif");
+		m.speak("where were you when you were wrong? I was in the computer, eating data when suddenly i get a call. 'person is wrong' 'no'");
+		}
 	}
+
+	
 
 	@Override
 	public void mousePressed(MouseEvent e) {

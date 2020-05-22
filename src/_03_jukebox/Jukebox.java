@@ -5,6 +5,8 @@ package _03_jukebox;
  */
 
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -12,7 +14,10 @@ import java.net.URL;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import javazoom.jl.player.advanced.AdvancedPlayer;
@@ -20,10 +25,27 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
 /*   If you don't have javazoom.jar in your project, you can download it from here: http://bit.ly/javazoom
  *   Right click your project and add it as a JAR (Under Java Build Path > Libraries).*/
 
-public class Jukebox implements Runnable {
+public class Jukebox implements Runnable, ActionListener {
+	
+JFrame frame = new JFrame();
+JLabel label = new JLabel();
+JPanel panel = new JPanel();
+JButton button1 = new JButton();
+JButton button2 = new JButton();
+JButton button3 = new JButton();
 
-    public void run() {
-
+public void run() {
+    	
+		button1.addActionListener(this);
+		button2.addActionListener(this);
+		button3.addActionListener(this);
+    	frame.add(label);
+    	panel.add(button1);
+    	panel.add(button2);
+    	panel.add(button3);
+    	frame.add(panel);
+    	frame.pack();
+    	frame.setVisible(true);
 		// 1. Find an mp3 on your computer or on the Internet.
 		// 2. Create a Song object for that mp3
 
@@ -36,14 +58,46 @@ public class Jukebox implements Runnable {
 		 * cover is clicked, stop the currently playing song, and play the one
 		 * that was selected.
 		 */
+    	
+    	
     }
     
     
+
+
+
 	/* Use this method to add album covers to your Panel. */
 	private JLabel loadImage(String fileName) {
 		URL imageURL = getClass().getResource(fileName);
 		Icon icon = new ImageIcon(imageURL);
 		return new JLabel(icon);
+	}
+	Song b = new Song("Bossanova.mp3");
+	Song p = new Song("PunkRock.mp3");
+	Song j = new Song("Jazz.mp3");
+	
+
+
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		b.setDuration(100);
+		p.setDuration(100);
+		j.setDuration(100);
+		if((arg0.getSource())== button1) {
+			b.play();
+			
+		}
+		else if((arg0.getSource())== button2) {
+			p.play();
+			
+		}
+		
+		else if((arg0.getSource())== button3) {
+			j.play();
+			
+		}
+		
 	}
 
 }
